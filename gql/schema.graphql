@@ -1,0 +1,525 @@
+# Accounts
+query userList {
+  users(search: "", isVerified: true, isDeleted: false, last: 50) {
+    count
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        username
+        firstName
+        lastName
+        avatar
+        mobile
+        email
+        gender
+        bio
+        address
+        location
+        birthDate
+        isVerified
+        isBusiness
+        isUsed
+        isStaff
+        isAdmin
+        isActive
+        dateJoined
+        modifiedAt
+        isDeleted
+        deletedAt
+        userMeetings {
+          count
+        }
+      }
+    }
+  }
+}
+
+query userSelect {
+  user(id: "VXNlclR5cGU6MQ==") {
+    id
+    username
+    firstName
+    lastName
+    avatar
+    mobile
+    email
+    gender
+    bio
+    address
+    location
+    birthDate
+    isVerified
+    isBusiness
+    isUsed
+    isStaff
+    isAdmin
+    isActive
+    dateJoined
+    modifiedAt
+    isDeleted
+    deletedAt
+    userMeetings {
+      count
+      edges {
+        node {
+          id
+          starter {
+            id
+            username
+          }
+          createdAt
+        }
+      }
+    }
+  }
+}
+
+query meQuery {
+  me {
+    id
+    username
+    firstName
+    lastName
+    avatar
+    mobile
+    email
+    gender
+    bio
+    address
+    location
+    birthDate
+    isVerified
+    isBusiness
+    isUsed
+    isStaff
+    isAdmin
+    isActive
+    dateJoined
+    modifiedAt
+    isDeleted
+    deletedAt
+    userMeetings {
+      count
+      edges {
+        node {
+          id
+          starter {
+            id
+            username
+          }
+          createdAt
+        }
+      }
+    }
+  }
+}
+
+mutation userCreate {
+  userCreate(username: "dorki", password: "password") {
+    user {
+      id
+      username
+      password
+    }
+  }
+}
+
+mutation tokenAuth {
+  tokenAuth(username: "johnie", password: "password") {
+    token
+  }
+}
+
+mutation verifyToken {
+  verifyToken(
+    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJleHAiOjE1NzI5NDg4MDQsIm9yaWdJYXQiOjE1NzI5NDg1MDR9.eZy4DNchj-K-QThICqZ8pmbBSVkQrnJvTOaTmfZh3tQ"
+  ) {
+    payload
+  }
+}
+
+mutation namesUpdate {
+  namesUpdate(firstName: "John", lastName: "Moses") {
+    user {
+      id
+      username
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation emailUpdate {
+  emailUpdate(email: "johnmoses@hedorg.com") {
+    user {
+      id
+      username
+      email
+    }
+  }
+}
+
+mutation avatarUpdate {
+  avatarUpdate(avatar: "john.jpg") {
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation birthdayUpdate {
+  birthdayUpdate(birthDate: "1973-06-06") {
+    user {
+      id
+      username
+      birthDate
+    }
+  }
+}
+
+mutation genderUpdate {
+  genderUpdate(gender: "M") {
+    user {
+      id
+      username
+      gender
+    }
+  }
+}
+
+mutation staffToggle {
+  staffToggle(input: { id: "VXNlclR5cGU6Mg==", isStaff: true }) {
+    clientMutationId
+  }
+}
+
+mutation adminToggle {
+  adminToggle(input: { id: "VXNlclR5cGU6Mg==", isAdmin: true }) {
+    clientMutationId
+  }
+}
+
+mutation superToggle {
+  superToggle(input: { id: "VXNlclR5cGU6Mg==", isSuperuser: true }) {
+    clientMutationId
+  }
+}
+
+mutation activeToggle {
+  activeToggle(input: { id: "VXNlclR5cGU6Mg==", isActive: true }) {
+    clientMutationId
+  }
+}
+
+mutation activatedToggle {
+  activatedToggle(input: { id: "VXNlclR5cGU6Mg==", isActive: true }) {
+    clientMutationId
+  }
+}
+
+
+mutation userDelete {
+  userDelete(input: { id: "VXNlclR5cGU6Mw==" }) {
+    clientMutationId
+    user {
+      id
+    }
+  }
+}
+
+
+# Analytics
+query analyticList {
+    analytics(last: 100) {
+      count
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          id
+          anonymousId
+          title
+          event
+          channel
+          category
+          resource
+          url
+          path
+          userId
+          method
+          day
+          responseTime
+          hour
+          createdAt
+        }
+      }
+    }
+  }
+
+  query analyticSelect {
+    analytic(id: "QW5hbHl0aWNUeXBlOjE=") {
+      anonymousId
+      title
+      event
+      channel
+      category
+      resource
+      url
+      path
+      userId
+      method
+      responseTime
+      day
+      hour
+      createdAt
+    }
+  }
+
+mutation analyticCreate {
+    analyticCreate(
+      input: {
+        anonymousId: "1"
+        title: ""
+        event: ""
+        channel: ""
+        category: ""
+        resource: ""
+        url: ""
+        path: ""
+        userId: ""
+        method: ""
+        responseTime: ""
+        day: ""
+        hour: ""
+      }
+    ) {
+      analytic {
+        id
+      }
+    }
+  }
+
+  mutation analyticUpsert  {
+    analyticUpsert(
+      input: {
+        id: "2"
+        anonymousId: ""
+        title: ""
+        event: ""
+        channel: ""
+        category: ""
+        resource: ""
+        url: ""
+        path: ""
+        userId: ""
+        method: ""
+        responseTime: ""
+        day: ""
+        hour: ""
+      }
+    ) {
+      analytic {
+        id
+      }
+    }
+  }
+
+  mutation analyticUpdate {
+    analyticUpdate(
+      input: {
+        id: "1"
+        anonymousId: "1"
+        title: ""
+        event: ""
+        channel: ""
+        category: ""
+        resource: ""
+        url: ""
+        path: ""
+        userId: ""
+        method: ""
+        responseTime: ""
+        day: ""
+        hour: ""
+      }
+    ) {
+      analytic {
+        id
+      }
+    }
+  }
+
+  # Meetings
+query meetingList {
+  meetings(starterId: "", isDeleted: false, last: 10) {
+    count
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+        description
+        photo
+        starter {
+          id
+          username
+        }
+        createdAt
+        modifiedAt
+        scheduledAt
+        startedAt
+        endedAt
+        deletedAt
+        isDeleted
+        isReoccuring
+      }
+    }
+  }
+}
+
+query usermeetingList {
+  usermeetings(starterId: "", isDeleted: false, last: 10) {
+    count
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+        description
+        photo
+        starter {
+          id
+          username
+        }
+        createdAt
+        modifiedAt
+        scheduledAt
+        startedAt
+        endedAt
+        deletedAt
+        isDeleted
+        isReoccuring
+      }
+    }
+  }
+}
+
+
+query meetingSelect {
+  meeting(id: "TWVldGluZ1R5cGU6MQ==") {
+    id
+    name
+    description
+    photo
+    starter {
+      id
+      username
+    }
+    createdAt
+    modifiedAt
+    scheduledAt
+    startedAt
+    endedAt
+    deletedAt
+    isDeleted
+    isReoccuring
+  }
+}
+
+mutation meetingCreate {
+  meetingCreate(
+      name: "Meeting 1"
+    	description: "Meeting one"
+    	photo: ""
+    	scheduledAt: ""
+  ) {
+    meeting {
+      id
+    }
+  }
+}
+
+mutation meetingnameUpdate {
+  meetingnameUpdate(
+    input: {
+      id: "TWVldGluZ1R5cGU6MQ=="
+      name: "Meeting one"
+    }
+  ) {
+    meeting {
+      id
+    }
+  }
+}
+
+mutation meetingdescriptionUpdate {
+  meetingdescriptionUpdate(
+    input: {
+      id: "TWVldGluZ1R5cGU6MQ=="
+      description: "Meeting one"
+    }
+  ) {
+    meeting {
+      id
+    }
+  }
+}
+
+mutation meetingStart {
+  meetingStart(
+    input: {
+      id: "TWVldGluZ1R5cGU6MQ=="
+      startedAt: "2022-06-20"
+    }
+  ) {
+    meeting {
+      id
+    }
+  }
+}
+
+mutation meetingEnd {
+  meetingEnd(
+    input: {
+      id: "TWVldGluZ1R5cGU6MQ=="
+      endedAt: "2022-06-20"
+      video: "video1.mp4"
+    }
+  ) {
+    meeting {
+      id
+    }
+  }
+}
+
+mutation meetingDelete {
+  meetingDelete(input: { id: "SGVscFR5cGU6NQ==" }) {
+    clientMutationId
+    meeting {
+      id
+    }
+  }
+}
